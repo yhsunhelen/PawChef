@@ -71,7 +71,7 @@ pet-meal-planner/
 ## Development Timeline
 
 **Developer:** [Developer Name]  
-**Agreed Fee:** 500 GIX Bucks  
+**Agreed Fee:** 35 GIX Bucks  
 **Total Duration:** ~5 weeks  
 
 | Check-in | Date | Required Progress |
