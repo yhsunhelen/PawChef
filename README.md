@@ -1,112 +1,95 @@
-# TECHIN 510 Final Project
----
+# 🐾 PawChef 
 
-## Overview
-
-The final project simulates a professional client-developer relationship. You will:
-
-1. **Propose your own project** — define the problem, write the spec, create a revenue model, review all code, and accept (or reject) deliverables. You never write code on your own project.
-2. **Develop someone else's project** — architect the system, implement it using agentic engineering (AI-first development), write tests, and deliver a working product.
-
-All collaborations happen through GitHub — Issues, Pull Requests, and code review. 
----
-
-## Why This Model?
-
-**For Proposers (Client role):** A key part of software development is defining what to build, evaluating whether it was built correctly, and giving feedback that improves the product. These are the skills of a product manager, a startup founder, or anyone who hires engineers.
-
-**For Developers (Engineer role):** Real engineering means building to someone else's spec, not your own vision. You must interpret requirements, negotiate scope, communicate progress, and respond to feedback — all while using AI tools effectively.
+A Streamlit web app that generates personalized weekly meal plans for pets using AI. Input your pet's profile and get a safe, balanced 7-day feeding schedule — no vet visit required.
 
 ---
 
-## The Two Roles
+## What It Does
 
-### Role 1: Proposer (Client / Product Owner)
-
-You are the client. You define what gets built and evaluate whether it meets your standards.
-
-**Your responsibilities:**
-- Write a Project Pitch with a revenue model
-- Create a detailed `SPEC.md` with user stories and acceptance criteria
-- Decompose the spec into GitHub Issues with testable acceptance criteria
-- Set up branch protection on your project repo (main requires 1 review)
-- Review every Pull Request your developer submits
-- File bug reports with reproduction steps and screenshots
-- Conduct acceptance testing at each gate
-- Present the problem, revenue model, and development story at Demo Day
-
-**You never write implementation code on your own project.**
-
-### Role 2: Developer (AI-First Freelance Engineer)
-
-You are the engineer. You build someone else's vision using agentic engineering.
-
-**Your responsibilities:**
-- Browse project pitches and express interest
-- Write an `ARCHITECTURE.md` with C4 diagram, data model, tech stack justification, and agentic engineering plan
-- Set up `CLAUDE.md` and `.cursorrules` for effective AI-assisted development
-- Implement features via Pull Requests, each referencing a GitHub Issue
-- Use agentic engineering (Cursor, Claude Code) for all development
-- Write automated tests and conduct security review
-- Respond to all PR review comments and bug reports
-- Present architecture and agentic engineering approach at Demo Day
-
-**Your skill is not writing code by hand — it is orchestrating AI to produce quality code, then verifying the output.**
+Pet owners often rely on generic food packaging guidelines that don't account for their animal's individual needs. **Pet Meal Planner** solves this by letting you describe your pet — species, age, weight, allergies, and health goals — and instantly generating a tailored 7-day meal plan with portion sizes and ingredient suggestions.
 
 ---
 
-## GIX Bucks Economy
+## Features
 
-Every project operates in a simulated economy that teaches budget management, scope-cost tradeoffs, and market validation.
-
-**See [`gix-bucks.md`](./gix-bucks.md) for full rules and worked examples.**
-
-Quick summary:
-- Every student starts with **100 GIX Bucks**
-- Proposers pay developers a **negotiated development fee**
-- At Demo Day, all students distribute their remaining bucks and those earned as developers as **investments** in projects they believe are viable
-- **Net Profit = Investment Received - Development Fee Paid**
-- Positive net profit is normalized to **bonus points**
-
----
-
-## Marketplace Matching
-
-If you are not hired by any client, or you cannot find a developer, let your instructor and TA know.
+- **Pet Profile Form** — Enter species, breed, age, weight, allergies, and health goals
+- **AI-Powered Meal Plans** — 7-day plan generated via Claude or OpenAI API
+- **Allergy Safety** — Forbidden ingredients are excluded from all suggestions
+- **Portion Guidance** — Portion sizes scaled to your pet's weight and life stage
+- **Clean Results View** — Day-by-day meal breakdown, easy to read and copy
 
 ---
 
 ## Tech Stack
 
-The tech stack is **negotiated between proposer and developer**. Some examples are given below:
-
-| Option | When to use |
-|--------|------------|
-| **Next.js + Supabase** | Multi-user apps, apps needing auth, database-heavy projects |
-| **Python + Streamlit** | Data-focused apps, single-user tools, rapid prototyping |
-| **Custom (pre-approved)** | Other stacks require written instructor approval by end of Week 3 |
-
-The proposer states their stack preference in the pitch. The developer may counter-propose with justification. The final choice is recorded in the `ARCHITECTURE.md`.
+| Layer | Technology |
+|-------|-----------|
+| UI | Streamlit |
+| Backend | Python |
+| AI | Claude API / OpenAI API |
+| Storage | Session state / CSV |
 
 ---
 
-## Conflict Resolution
+## Getting Started
+```bash
+# Clone the repo
+git clone https://github.com/<your-username>/pet-meal-planner.git
+cd pet-meal-planner
 
-### Contract Terms
+# Install dependencies
+pip install -r requirements.txt
 
-The `SPEC.md` + agreed GIX Bucks fee constitute the project contract. Both parties should commit to:
+# Add your API key
+cp .env.example .env
+# Edit .env and set your ANTHROPIC_API_KEY or OPENAI_API_KEY
 
-- **Proposer:** Review PRs within 48 hours. Provide specific, actionable feedback. Respond to developer questions within 48 hours.
-- **Developer:** Submit at least one PR per 2-week period. Respond to review comments within 48 hours. Keep the proposer informed of blockers.
-
-### Escalation Process
-
-1. If either party is unresponsive or breaches the contract, the other creates a GitHub Issue tagged `escalation` in the project repo.
-2. Instructor reviews the GitHub audit trail (PR timestamps, Issue activity, review comments) within 1 week.
-3. Instructor mediates and documents the outcome.
-
-### Grade Impact
-
-- **Communication & Professionalism** are graded. Ghosting, persistent non-responsiveness may result in point deduction. 
+# Run the app
+streamlit run app.py
+```
 
 ---
+
+## Project Structure
+```
+pet-meal-planner/
+├── app.py                # Main Streamlit app entry point
+├── pages/
+│   ├── 1_profile.py      # Pet profile input form
+│   └── 2_meal_plan.py    # Meal plan results display
+├── utils/
+│   ├── ai_client.py      # AI API integration and prompt logic
+│   └── nutrition.py      # Portion size and species safety rules
+├── requirements.txt
+├── .env.example
+├── SPEC.md
+└── README.md
+```
+
+---
+
+## Development Timeline
+
+**Developer:** [Developer Name]  
+**Agreed Fee:** 500 GIX Bucks  
+**Total Duration:** ~5 weeks  
+
+| Check-in | Date | Required Progress |
+|----------|------|-------------------|
+| ✅ Check-in 1 | Week 1 | Project repo initialized; pet profile form (Page 1) fully functional with all input fields and validation |
+| 🔄 Check-in 2 | Week 3 | AI API integrated and returning meal plans; allergy filtering working; basic results page (Page 2) displaying output |
+| 🏁 Check-in 3 | Week 5 | Full app complete — portion sizes, UI polish, mobile responsiveness, README updated, deployed to Streamlit Cloud |
+
+---
+
+## Disclaimer
+
+Pet Meal Planner is designed for general nutrition guidance only. It is **not a substitute for professional veterinary advice**. Always consult a licensed veterinarian for medical concerns or special dietary conditions.
+
+---
+
+## Author
+
+**Mengqi Shi**  
+TECHIN 510 — Programming for Digital and Physical User Interfaces  
+University of Washington, GIX
