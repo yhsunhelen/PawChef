@@ -70,15 +70,15 @@ pet-meal-planner/
 
 ## Development Timeline
 
-**Developer:** [Developer Name]  
+**Developer:** Xin Luo  
 **Agreed Fee:** 35 GIX Bucks  
-**Total Duration:** ~5 weeks  
+**Total Duration:** ~8 weeks  
 
 | Check-in | Date | Required Progress |
 |----------|------|-------------------|
-| ✅ Check-in 1 | Week 1 | Project repo initialized; pet profile form (Page 1) fully functional with all input fields and validation |
-| 🔄 Check-in 2 | Week 3 | AI API integrated and returning meal plans; allergy filtering working; basic results page (Page 2) displaying output |
-| 🏁 Check-in 3 | Week 5 | Full app complete — portion sizes, UI polish, mobile responsiveness, README updated, deployed to Streamlit Cloud |
+| Check-in 1 | Week 1 | Project repo initialized; pet profile form (Page 1) fully functional with all input fields and validation |
+| Check-in 2 | Week 4 | AI API integrated and returning meal plans; allergy filtering working; basic results page (Page 2) displaying output |
+| Check-in 3 | Week 8 | Full app complete — portion sizes, UI polish, mobile responsiveness, README updated, deployed to Streamlit Cloud |
 
 ---
 
