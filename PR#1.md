@@ -89,7 +89,7 @@ These will be implemented in later feature PRs.
 This PR follows the agreed project scope in `SPEC.md`.
 
 Client-recorded agreement:
-- **Developer:** Xin Luo
+- **Developer:** Yuhang Sun
 - **Development Fee:** 35 GIX Bucks
 
 ---
