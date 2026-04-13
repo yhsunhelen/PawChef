@@ -70,7 +70,7 @@ pet-meal-planner/
 
 ## Development Timeline
 
-**Developer:** Xin Luo  
+**Developer:** Yuhang Sun  
 **Agreed Fee:** 35 GIX Bucks  
 **Total Duration:** ~8 weeks  
 
