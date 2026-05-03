@@ -83,7 +83,6 @@ if submitted:
         for err in errors:
             st.error(err)
     else:
-        # Build profile dict and persist in session state
         profile = {
             "species": species,
             "breed": breed.strip(),
@@ -99,7 +98,6 @@ if submitted:
         st.success("Profile saved! Here's a summary:")
         st.markdown("---")
 
-        # --- Confirmation summary ---
         st.subheader("Profile Summary")
         col1, col2 = st.columns(2)
         with col1:

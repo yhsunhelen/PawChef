@@ -20,7 +20,9 @@ Pet owners often rely on generic food packaging guidelines that don't account fo
 ```
 pawchef/
 ├── app.py                # Main Streamlit app entry point
-├── pages/                # Multi-page app pages (coming soon)
+├── pages/
+│   ├── 1_profile.py      # Pet profile input form
+│   └── 2_meal_plan.py    # Meal plan results display (AI coming soon)
 ├── utils/
 │   ├── ai_client.py      # AI API integration (coming soon)
 │   └── nutrition.py      # Portion size and safety rules (coming soon)
@@ -84,6 +86,6 @@ The app will open at `http://localhost:8501`.
 - [x] Project repository initialized
 - [x] Streamlit app entry point created
 - [x] Dependencies configured
-- [ ] Pet profile form (Issue #3)
-- [ ] AI meal plan generation (Issue #4)
-- [ ] Portion sizing and nutrition rules (Issue #5)
+- [x] Pet profile form — species, breed, age, weight, allergies, health goal, validation, session state
+- [ ] AI meal plan generation (Issue #3)
+- [ ] Portion sizing and nutrition rules (Issue #3)
