@@ -24,8 +24,8 @@ pawchef/
 │   ├── 1_profile.py      # Pet profile input form
 │   └── 2_meal_plan.py    # Meal plan results display (AI coming soon)
 ├── utils/
-│   ├── ai_client.py      # AI API integration (coming soon)
-│   └── nutrition.py      # Portion size and safety rules (coming soon)
+│   ├── ai_client.py      # AI API integration — Anthropic + DeepSeek, prompt logic, JSON parsing
+│   └── nutrition.py      # RER-based portion sizes and species safety rules
 ├── requirements.txt
 ├── .env.example
 └── README.md
@@ -87,5 +87,9 @@ The app will open at `http://localhost:8501`.
 - [x] Streamlit app entry point created
 - [x] Dependencies configured
 - [x] Pet profile form — species, breed, age, weight, allergies, health goal, validation, session state
-- [ ] AI meal plan generation (Issue #3)
-- [ ] Portion sizing and nutrition rules (Issue #3)
+- [x] AI meal plan generation — Anthropic Claude API + DeepSeek fallback, JSON prompt/parse, 7-day plan + commercial recommendations
+- [x] Portion sizing and nutrition rules — veterinary RER formula, per-species meal frequency, wet/dry food gram/oz conversion
+- [ ] Input edge-case fixes — weight/age 0 accepted, provider fallback on API error
+- [ ] Stale meal plan persists when profile is re-submitted
+- [ ] UI polish and mobile responsiveness
+- [ ] Deployment to Streamlit Cloud

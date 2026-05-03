@@ -74,11 +74,26 @@ pet-meal-planner/
 **Agreed Fee:** 35 GIX Bucks  
 **Total Duration:** ~8 weeks  
 
-| Check-in | Date | Required Progress |
-|----------|------|-------------------|
-| Check-in 1 | Week 1 | Project repo initialized; pet profile form (Page 1) fully functional with all input fields and validation |
-| Check-in 2 | Week 4 | AI API integrated and returning meal plans; allergy filtering working; basic results page (Page 2) displaying output |
-| Check-in 3 | Week 8 | Full app complete — portion sizes, UI polish, mobile responsiveness, README updated, deployed to Streamlit Cloud |
+| Check-in | Date | Status | Progress |
+|----------|------|--------|----------|
+| Check-in 1 | 2026-04-06 | ✅ Complete | Project repo initialized; Streamlit entry point running; pet profile form (Page 1) fully functional with all input fields, validation, and session state |
+| Check-in 2 *(mid-point)* | 2026-05-03 | ✅ Complete | AI API integrated (Anthropic Claude + DeepSeek fallback); species-aware toxic food filtering; portion size calculation via veterinary RER formula; 7-day meal plan + commercial food recommendations; plain-text export |
+| Check-in 3 | 2026-05-24 | ⏳ Upcoming | Full app complete — UI polish, mobile responsiveness, input edge-case fixes, README finalized, deployed to Streamlit Cloud |
+
+### Mid-Point Check (Check-in 2) — 2026-05-03
+
+**Completed since Check-in 1:**
+- `utils/ai_client.py` — AI prompt engineering with species-specific toxic food exclusion, dual-provider support (Anthropic primary / DeepSeek fallback), JSON response parsing with error handling
+- `utils/nutrition.py` — Veterinary RER-based calorie calculation, per-species meal frequency, wet/dry food portion conversion
+- `pages/2_meal_plan.py` — Full results UI: daily nutrition targets, collapsible day-by-day breakdown, commercial food recommendations, regenerate button, plain-text export
+- `Final/` subdirectory restructured with all production code
+
+**Remaining for Check-in 3:**
+- Fix input validation edge cases (weight/age = 0 accepted; see Bug #13, #14)
+- Handle AI provider fallback on error (see Bug #15)
+- Clear stale meal plan when profile is re-submitted (see Bug #16)
+- UI polish and mobile layout testing
+- Deploy to Streamlit Cloud and update README with live URL
 
 ---
 
