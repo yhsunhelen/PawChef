@@ -87,5 +87,6 @@ The app will open at `http://localhost:8501`.
 - [x] Streamlit app entry point created
 - [x] Dependencies configured
 - [x] Pet profile form — species, breed, age, weight, allergies, health goal, validation, session state
-- [ ] AI meal plan generation (Issue #3)
-- [ ] Portion sizing and nutrition rules (Issue #3)
+- [x] AI meal plan generation — Claude / DeepSeek API integration, allergy filtering (Issue #4)
+- [x] Portion sizing and nutrition rules — RER-based caloric calculation (Issue #6)
+- [x] Meal plan results page — 7-day breakdown, commercial food recommendations, regenerate & export (Issue #5)
