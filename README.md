@@ -2,6 +2,8 @@
 
 A Streamlit web app that generates personalized weekly meal plans for pets using AI. Input your pet's profile and get a safe, balanced 7-day feeding schedule — no vet visit required.
 
+**Live Demo:** https://swbenchmini-ewzmhdfhrvd9zrsnzds4dz.streamlit.app
+
 ---
 
 ## What It Does
