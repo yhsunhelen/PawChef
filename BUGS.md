@@ -1,73 +1,78 @@
 # Bug Report — PawChef
 
-## Bug 1 — Weight = 0 Bypasses Form Validation
+## Bug 1 — Weight = 0 Bypasses Form Validation ✅ Fixed
 
-**File:** `Final/pages/1_profile.py`, line 77  
+**File:** `Final/pages/1_profile.py`
 **Severity:** Medium
+**Status:** Fixed in current code
 
-**Description:**  
-The weight field accepts `0` as a valid value. The validation only checks for `None` (empty field), so a user can submit a weight of zero without any error.
+**Description:**
+The weight field accepted `0` as a valid value, allowing submission and producing a nonsensical 1 kcal/day plan.
 
-**Steps to Reproduce:**
-1. Open the Pet Profile page
-2. Fill in all required fields normally
-3. Set Weight to `0`
-4. Click "Generate Meal Plan"
-
-**Expected:** Error message — "Weight must be greater than 0."  
-**Actual:** Form submits successfully. The calorie calculation (`70 × 0^0.75 = 0`) is forced to 1 kcal/day by a `max(1, ...)` guard in `nutrition.py`, producing a nonsensical meal plan.
+**Fix:**
+`pages/1_profile.py` validation block contains:
+```python
+elif weight_value <= 0:
+    errors.append("Weight must be greater than 0.")
+```
+This check catches both `0` and negative values before saving. The `st.number_input` uses `min_value=0.0` so the widget prevents negatives at the UI level; the backend guard catches the exact-zero edge case.
 
 ---
 
-## Bug 2 — Age = 0 Bypasses Form Validation
+## Bug 2 — Age = 0 Bypasses Form Validation ✅ Fixed
 
-**File:** `Final/pages/1_profile.py`, line 75  
+**File:** `Final/pages/1_profile.py`
 **Severity:** Low
+**Status:** Fixed in current code
 
-**Description:**  
-Same issue as Bug 1. Age `0` is accepted without error. A newborn animal has very different nutritional needs, but the app treats it identically to any other age.
+**Description:**
+Same issue as Bug 1 for the Age field.
 
-**Steps to Reproduce:**
-1. Open the Pet Profile page
-2. Fill in all required fields normally
-3. Set Age to `0`
-4. Click "Generate Meal Plan"
-
-**Expected:** Error message — "Age must be greater than 0."  
-**Actual:** Form submits and generates a plan with no age-appropriate adjustment.
+**Fix:**
+`pages/1_profile.py` validation block contains:
+```python
+elif age_value <= 0:
+    errors.append("Age must be greater than 0.")
+```
 
 ---
 
-## Bug 3 — Stale Meal Plan Shown After Profile Update
+## Bug 3 — Stale Meal Plan Shown After Profile Update ✅ Fixed
 
-**File:** `Final/pages/2_meal_plan.py`, line 122–128  
+**File:** `Final/pages/1_profile.py`, `Final/pages/2_meal_plan.py`
 **Severity:** Medium
+**Status:** Fixed
 
-**Description:**  
-If a meal plan has already been generated and the user goes back to update the pet profile, the Meal Plan page still shows the old plan. The profile summary at the top reflects the new profile, but the meal content belongs to the previous one.
+**Description:**
+If a meal plan was generated and the user later edited the pet's profile (e.g., changed species Dog → Cat, or updated health goal/weight), the Meal Plan page continued to display the old plan with no indication it was stale.
 
-**Steps to Reproduce:**
-1. Complete the Pet Profile form and navigate to Meal Plan
-2. Click "Generate Meal Plan" — wait for it to finish
-3. Go back to Pet Profile, change the species (e.g., Dog → Cat), and submit
-4. Navigate back to Meal Plan
+**Fix (two-layer):**
 
-**Expected:** Either a prompt to regenerate, or the old plan is cleared automatically.  
-**Actual:** Old meal plan is displayed under the new pet's profile header — a Dog plan shown for a Cat.
+1. **Auto-clear on save** (`pages/1_profile.py`): When an edit saves with any change to `species`, `health_goal`, `weight_value`, `weight_unit`, `age_value`, or `age_unit`, the stored plan for that pet is immediately deleted from `meal_plans` and the user sees an info message: *"Profile changed — the previous meal plan was cleared."*
+
+2. **Staleness banner** (`pages/2_meal_plan.py`): Every newly generated plan stores a `_profile_snapshot` dict. On load, `_is_plan_stale()` compares the snapshot against the current profile. If they differ, a yellow warning is shown: *"This plan was generated before the profile was updated. Click Regenerate below."*
 
 ---
 
-## Bug 4 — Invalid DeepSeek Key Blocks Valid Anthropic Key
+## Bug 4 — Invalid DeepSeek Key Blocks Valid Anthropic Key ✅ Fixed
 
-**File:** `Final/utils/ai_client.py`, lines 132–148  
+**File:** `Final/utils/ai_client.py`
 **Severity:** High
+**Status:** Fixed in current code
 
-**Description:**  
-The code always tries DeepSeek first if `DEEPSEEK_API_KEY` is set. If that key is present but invalid, the call raises an exception and the app shows an error — it never attempts the Anthropic key, even if `ANTHROPIC_API_KEY` is valid.
+**Description:**
+When `DEEPSEEK_API_KEY` was set but invalid, a 401 error was raised and the Anthropic key was never tried.
 
-**Steps to Reproduce:**
-1. Set `DEEPSEEK_API_KEY=invalid_key` and `ANTHROPIC_API_KEY=<valid key>` in `.env`
-2. Complete the pet profile and click "Generate Meal Plan"
-
-**Expected:** Falls back to Anthropic and generates a plan successfully.  
-**Actual:** DeepSeek call fails with a 401 error; Anthropic is never tried.
+**Fix:**
+`utils/ai_client.py` wraps the DeepSeek call in a `try/except` that falls back to Anthropic on any exception:
+```python
+if deepseek_key:
+    try:
+        raw = _call_deepseek(prompt, deepseek_key)
+    except Exception as deepseek_err:
+        if not anthropic_key:
+            raise ValueError(f"DeepSeek failed and no Anthropic key is set: {deepseek_err}")
+        raw = _call_anthropic(prompt, anthropic_key)
+else:
+    raw = _call_anthropic(prompt, anthropic_key)
+```
