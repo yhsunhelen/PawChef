@@ -204,6 +204,28 @@ hr { border-color: var(--line) !important; }
   color: var(--muted) !important;
   letter-spacing: .04em !important;
 }
+
+/* ── mobile responsiveness (< 768px) ── */
+@media (max-width: 768px) {
+  .main .block-container {
+    padding-top: 1rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  .chef-display {
+    font-size: clamp(28px, 8vw, 48px) !important;
+  }
+  .chef-h2 { font-size: 24px !important; }
+  .chef-h3 { font-size: 18px !important; }
+  .chef-lede { font-size: 15px !important; }
+  [data-testid="stButton"] > button {
+    padding: 8px 16px !important;
+    font-size: 14px !important;
+  }
+  [data-testid="stMetricValue"] {
+    font-size: 22px !important;
+  }
+}
 """
 
 _UTILITY_CSS = """

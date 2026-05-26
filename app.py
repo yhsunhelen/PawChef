@@ -129,6 +129,24 @@ if "meal_plans" not in st.session_state:
 
 pets: list = st.session_state["pets"]
 
+# ── Logo / wordmark ───────────────────────────────────────────────────────────
+st.markdown("""
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;">
+  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="18" cy="18" r="18" fill="#4f6b3a"/>
+    <!-- paw pads -->
+    <ellipse cx="18" cy="21" rx="6" ry="5" fill="#f5efe3"/>
+    <ellipse cx="10.5" cy="16" rx="2.8" ry="3.4" fill="#f5efe3"/>
+    <ellipse cx="25.5" cy="16" rx="2.8" ry="3.4" fill="#f5efe3"/>
+    <ellipse cx="13.5" cy="12" rx="2.2" ry="2.8" fill="#f5efe3"/>
+    <ellipse cx="22.5" cy="12" rx="2.2" ry="2.8" fill="#f5efe3"/>
+  </svg>
+  <span style="font-family:var(--serif);font-size:26px;letter-spacing:-.01em;color:var(--ink);line-height:1;">
+    Paw<em style="font-style:italic;color:var(--accent);">Chef</em>
+  </span>
+</div>
+""", unsafe_allow_html=True)
+
 # ── Hero ──────────────────────────────────────────────────────────────────────
 st.markdown('<div class="chef-home-hero">', unsafe_allow_html=True)
 eyebrow("your household")
