@@ -1,0 +1,20 @@
+{
+  "avatars": [
+    { "id": "cat-siamese-sit",        "file": "avatars/cat-siamese-sit.png",        "species": "cat",        "label": "Siamese",           "pose": "sit"   },
+    { "id": "cat-orange-sit",         "file": "avatars/cat-orange-sit.png",         "species": "cat",        "label": "Orange tabby",      "pose": "sit"   },
+    { "id": "cat-black-sit",          "file": "avatars/cat-black-sit.png",          "species": "cat",        "label": "Black shorthair",   "pose": "sit"   },
+    { "id": "cat-british-grey-sit",   "file": "avatars/cat-british-grey-sit.png",   "species": "cat",        "label": "British Shorthair", "pose": "sit"   },
+    { "id": "cat-grey-lie",           "file": "avatars/cat-grey-lie.png",           "species": "cat",        "label": "Grey longhair",     "pose": "lie"   },
+    { "id": "dog-corgi-stand",        "file": "avatars/dog-corgi-stand.png",        "species": "dog",        "label": "Corgi",             "pose": "stand" },
+    { "id": "dog-shiba-sit",          "file": "avatars/dog-shiba-sit.png",          "species": "dog",        "label": "Shiba Inu",         "pose": "sit"   },
+    { "id": "dog-poodle-sit",         "file": "avatars/dog-poodle-sit.png",         "species": "dog",        "label": "Toy Poodle",        "pose": "sit"   },
+    { "id": "dog-dachshund-stand",    "file": "avatars/dog-dachshund-stand.png",    "species": "dog",        "label": "Dachshund",         "pose": "stand" },
+    { "id": "dog-spaniel-lie",        "file": "avatars/dog-spaniel-lie.png",        "species": "dog",        "label": "Spaniel",           "pose": "lie"   },
+    { "id": "rabbit-brown-stand",     "file": "avatars/rabbit-brown-stand.png",     "species": "rabbit",     "label": "Brown bunny",       "pose": "stand" },
+    { "id": "bird-budgie-stand",      "file": "avatars/bird-budgie-stand.png",      "species": "bird",       "label": "Budgie",            "pose": "stand" },
+    { "id": "bird-cockatiel-stand",   "file": "avatars/bird-cockatiel-stand.png",   "species": "bird",       "label": "Cockatiel",         "pose": "stand" },
+    { "id": "bird-canary-stand",      "file": "avatars/bird-canary-stand.png",      "species": "bird",       "label": "Canary",            "pose": "stand" },
+    { "id": "hamster-golden-stand",   "file": "avatars/hamster-golden-stand.png",   "species": "hamster",    "label": "Golden hamster",    "pose": "stand" },
+    { "id": "guineapig-tricolor-sit", "file": "avatars/guineapig-tricolor-sit.png", "species": "guineapig",  "label": "Tricolor",          "pose": "sit"   }
+  ]
+}

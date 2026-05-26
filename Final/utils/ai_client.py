@@ -141,14 +141,9 @@ def generate_meal_plan(profile: dict) -> dict:
     portions = get_portion_guidance(profile["species"], weight_kg, profile["health_goal"])
     prompt = _build_prompt(profile, portions)
 
-    # Try DeepSeek first; fall back to Anthropic on any API error.
+    # Prefer DeepSeek if key is present, otherwise fall back to Anthropic.
     if deepseek_key:
-        try:
-            raw = _call_deepseek(prompt, deepseek_key)
-        except Exception as deepseek_err:
-            if not anthropic_key:
-                raise ValueError(f"DeepSeek failed and no Anthropic key is set: {deepseek_err}") from deepseek_err
-            raw = _call_anthropic(prompt, anthropic_key)
+        raw = _call_deepseek(prompt, deepseek_key)
     else:
         raw = _call_anthropic(prompt, anthropic_key)
 
