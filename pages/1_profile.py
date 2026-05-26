@@ -74,8 +74,12 @@ if submitted:
         errors.append("Breed is required.")
     if age_value is None:
         errors.append("Age is required.")
+    elif age_value <= 0:
+        errors.append("Age must be greater than 0.")
     if weight_value is None:
         errors.append("Weight is required.")
+    elif weight_value <= 0:
+        errors.append("Weight must be greater than 0.")
     if not health_goal:
         errors.append("Health Goal is required.")
 
@@ -94,6 +98,7 @@ if submitted:
             "health_goal": health_goal,
         }
         st.session_state["pet_profile"] = profile
+        st.session_state.pop("meal_plan", None)  # clear stale plan when profile changes
 
         st.success("Profile saved! Here's a summary:")
         st.markdown("---")
