@@ -266,16 +266,26 @@ if submitted:
         st.session_state.pop("meal_plan", None)
 
         _label = 'Added' if is_new else 'Updated'
-        st.success(f"{_label}: **{profile['name'] or profile['breed']}**")
-        if _plan_invalidated:
-            st.info("Profile changed — the previous meal plan was cleared. Generate a new one below.")
-        st.markdown("---")
+        st.session_state["_profile_just_saved"] = profile["name"] or profile["breed"]
+        st.session_state["_profile_plan_invalidated"] = _plan_invalidated
+        st.rerun()
 
-        c1, c2 = st.columns(2)
-        with c1:
-            if st.button("🏠 Back to Home", use_container_width=True):
-                st.switch_page("app.py")
-        with c2:
-            if st.button("🍽️ Generate Meal Plan →", use_container_width=True):
-                st.session_state["meal_plan"] = None
-                st.switch_page("pages/2_meal_plan.py")
+# ── Post-save action buttons (rendered outside form block so clicks register) ──
+if st.session_state.get("_profile_just_saved"):
+    saved_name = st.session_state["_profile_just_saved"]
+    st.success(f"Saved: **{saved_name}**")
+    if st.session_state.get("_profile_plan_invalidated"):
+        st.info("Profile changed — the previous meal plan was cleared. Generate a new one below.")
+    st.markdown("---")
+    c1, c2 = st.columns(2)
+    with c1:
+        if st.button("🏠 Back to Home", use_container_width=True):
+            st.session_state.pop("_profile_just_saved", None)
+            st.session_state.pop("_profile_plan_invalidated", None)
+            st.switch_page("app.py")
+    with c2:
+        if st.button("🍽️ Generate Meal Plan →", use_container_width=True):
+            st.session_state["meal_plan"] = None
+            st.session_state.pop("_profile_just_saved", None)
+            st.session_state.pop("_profile_plan_invalidated", None)
+            st.switch_page("pages/2_meal_plan.py")
