@@ -89,12 +89,16 @@ for p in displayed:
 
 # ── Slot definitions (positions as % of scene width/height) ──────────────────
 _SLOTS = [
-    {"id": "sofa-cushion", "x": 78, "feet_y": 67, "label": "on the sofa",         "prefer": ["lie", "sit", "stand"], "w": 17, "pop": "left"},
-    {"id": "sofa-arm",     "x": 58, "feet_y": 58, "label": "on the armrest",      "prefer": ["sit", "stand"],        "w": 12, "pop": "left"},
-    {"id": "rug-center",   "x": 42, "feet_y": 91, "label": "on the rug",          "prefer": ["lie", "sit", "stand"], "w": 16, "pop": "right"},
-    {"id": "by-plant",     "x": 11, "feet_y": 81, "label": "by the plant",        "prefer": ["stand", "sit"],        "w": 13, "pop": "right"},
-    {"id": "by-bowl",      "x": 82, "feet_y": 87, "label": "by the food bowl",    "prefer": ["stand", "sit"],        "w": 11, "pop": "left"},
+    {"id": "plant-top",   "x": 14, "feet_y": 43, "label": "on the plant",        "prefer": ["stand"],               "w": 10, "pop": "right", "elevated": True},
+    {"id": "sofa-cushion","x": 72, "feet_y": 67, "label": "on the sofa",         "prefer": ["lie", "sit", "stand"], "w": 17, "pop": "left"},
+    {"id": "sofa-arm",    "x": 55, "feet_y": 58, "label": "on the armrest",      "prefer": ["sit", "stand"],        "w": 12, "pop": "left"},
+    {"id": "rug-center",  "x": 42, "feet_y": 91, "label": "on the rug",          "prefer": ["lie", "sit", "stand"], "w": 16, "pop": "right"},
+    {"id": "by-plant",    "x": 11, "feet_y": 81, "label": "by the plant",        "prefer": ["stand", "sit"],        "w": 13, "pop": "right"},
+    {"id": "by-bowl",     "x": 82, "feet_y": 87, "label": "by the food bowl",    "prefer": ["stand", "sit"],        "w": 11, "pop": "left"},
 ]
+
+# Species that must be placed in elevated slots (not on the floor)
+_AERIAL_SPECIES = {"bird"}
 _AV_POSE = {
     "cat-orange-sit": "sit",  "cat-siamese-sit": "sit", "cat-black-sit": "sit",
     "cat-british-grey-sit": "sit", "cat-grey-lie": "lie",
@@ -123,27 +127,49 @@ _SPECIES_SCALE = {
 def _assign(pets_list):
     remaining = list(pets_list)
     result = {}
-    for slot in _SLOTS:
+
+    elevated = [s for s in _SLOTS if s.get("elevated")]
+    ground   = [s for s in _SLOTS if not s.get("elevated")]
+
+    # Pre-pass: aerial species (birds) go to elevated slots only
+    for slot in elevated:
         for pet in remaining:
+            if pet.get("species", "").lower() in _AERIAL_SPECIES:
+                result[slot["id"]] = pet
+                remaining.remove(pet)
+                break
+
+    # Pass 1: best pose match on ground slots (non-aerial pets only)
+    for slot in ground:
+        for pet in remaining:
+            if pet.get("species", "").lower() in _AERIAL_SPECIES:
+                continue
             pose = _AV_POSE.get(pet.get("avatarId", ""), "sit")
             if pose == slot["prefer"][0]:
                 result[slot["id"]] = pet
                 remaining.remove(pet)
                 break
-    for slot in _SLOTS:
+
+    # Pass 2: any acceptable pose on ground slots
+    for slot in ground:
         if slot["id"] in result:
             continue
         for pet in remaining:
+            if pet.get("species", "").lower() in _AERIAL_SPECIES:
+                continue
             pose = _AV_POSE.get(pet.get("avatarId", ""), "sit")
             if pose in slot["prefer"]:
                 result[slot["id"]] = pet
                 remaining.remove(pet)
                 break
+
+    # Pass 3: fill any leftover slots with whatever remains (aerial included)
     for slot in _SLOTS:
         if slot["id"] in result:
             continue
         if remaining:
             result[slot["id"]] = remaining.pop(0)
+
     return result
 
 
